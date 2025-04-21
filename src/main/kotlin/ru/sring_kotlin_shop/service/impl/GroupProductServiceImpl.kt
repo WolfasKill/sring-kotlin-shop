@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service
 import ru.shopkotlin.sring_kotlin.dto.GroupProductDto
 import ru.shopkotlin.sring_kotlin.entity.GroupProductEntity
 import ru.shopkotlin.sring_kotlin.exception.ErrMessages
-import ru.shopkotlin.sring_kotlin.service.ProductService
 import ru.sring_kotlin_shop.repository.GroupProductRepository
 import ru.sring_kotlin_shop.service.GroupProductService
 import ru.sring_kotlin_shop.service.ProductServiceNew
@@ -84,7 +83,7 @@ class GroupProductServiceImpl(
             .map { g -> GroupProductDto(g.n, g.name, g.parentN, g.haveChilds) }//.toList()
     }
 
-    // Можно совместить с create() или даже сделать один save(). Но сделал именно так.
+
     @Throws(Exception::class)
     override fun update(groupProductDTO: GroupProductDto): GroupProductDto {
         if (!existsByN(groupProductDTO.n)) {
