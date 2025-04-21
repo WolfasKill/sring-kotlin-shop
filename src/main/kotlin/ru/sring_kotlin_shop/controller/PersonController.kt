@@ -13,7 +13,7 @@ import ru.sring_kotlin_shop.dto.PersonDto
 @RequestMapping("/persons")
 @Tag(
     name = "Пользователи",
-    description = "Все методы для работы с пользователями системы",
+    description = "Все методы для работы с пользователями системы.",
 )
 class PersonController {
     @GetMapping("/{id}")
