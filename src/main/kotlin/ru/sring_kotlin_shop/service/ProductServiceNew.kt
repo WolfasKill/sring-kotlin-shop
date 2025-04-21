@@ -19,7 +19,6 @@ interface ProductServiceNew {
     @Throws(Exception::class)
     fun getByN(n: Long): ProductDtoNew
     fun getByNs(nn: List<Long>): List<ProductDtoNew>
-    fun getByFilter(filter: ProductFilter): List<ProductDtoNew>
     fun getByName(name: String): List<ProductDtoNew>
     fun getCountOfProductNames(): Long
     fun getAll(): List<ProductDtoNew>
