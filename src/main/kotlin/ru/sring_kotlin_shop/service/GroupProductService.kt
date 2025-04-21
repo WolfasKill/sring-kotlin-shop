@@ -15,5 +15,5 @@ interface GroupProductService {
     @Throws(Exception::class)
     fun getByN(n: Long): GroupProductDto
     fun existsByN(n: Long): Boolean
-    fun getByFilter(filter: GroupProductFilter): List<GroupProductDto>
+//    fun getByFilter(filter: GroupProductFilter): List<GroupProductDto>
 }

@@ -1,12 +1,20 @@
 package ru.sring_kotlin_shop.controller
 
+import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
+import jakarta.validation.ConstraintViolation
+import jakarta.validation.Valid
 import org.slf4j.LoggerFactory
 import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.Cacheable
+import org.springframework.validation.Validator
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
+import ru.shopkotlin.sring_kotlin.dto.GroupProductDto
+import ru.shopkotlin.sring_kotlin.exception.ErrMessages
+import ru.sring_kotlin_shop.service.GroupProductService
+import ru.sring_kotlin_shop.service.ProductServiceNew
 import java.lang.String.format
 
 @RestController
@@ -18,13 +26,17 @@ import java.lang.String.format
  * (уход от lazy проблем, независимость от способа получения самих DTO и т.п.).
  */
 
-class GroupProductCtrl(val groupProductService: GroupProductService, val productService: ProductService) {
+class GroupProductCtrl(
+    val groupProductService: GroupProductService,
+    val productService: ProductServiceNew,
+    private val validator: Validator
+) {
 
     private val logger = LoggerFactory.getLogger(this.javaClass.name)
-    val validator: javax.validation.Validator = Validation.buildDefaultValidatorFactory().validator
+
 
     @GetMapping("/echo/{mes}")
-    @ApiOperation("Simple echo test")
+    @Operation(method = "Simple echo test")
     fun echoMessage(
         @Parameter(
             description = "Any string. will be returned in response."
@@ -35,25 +47,19 @@ class GroupProductCtrl(val groupProductService: GroupProductService, val product
     }
 
     @PostMapping
-    @ApiOperation("Create GroupProduct from DTO")
+    @Operation(method = "Create GroupProduct from DTO")
     @CacheEvict(value = ["group_products", "allGroupProductDTO"], allEntries = true)
     fun create(
         @Parameter(
             description = "DTO of GroupProduct."
         )
-        @RequestBody groupProductDTO: GroupProductDTO
-    ): GroupProductDTO {
-        val violations: MutableSet<ConstraintViolation<GroupProductDTO>> =
+        @RequestBody groupProductDTO: GroupProductDto
+    ): GroupProductDto {
+        val violations: MutableSet<ConstraintViolation<GroupProductDto>> =
             validator.validate(groupProductDTO)
 
         if (violations.size > 0) {
             var messageError = ""
-// OLD STYLE
-//            for(violation in violations) {
-//                messageError = messageError.plus(violation.message + "\n")
-//            }
-
-// USED STREAM
             violations.forEach { violation ->
                 messageError = messageError.plus(violation.message + "\n")
             }
@@ -64,13 +70,13 @@ class GroupProductCtrl(val groupProductService: GroupProductService, val product
 
     @GetMapping("/{n}")
     @Cacheable("group_products")
-    @ApiOperation("Get GroupProduct by ID")
+    @Operation(method = "Get GroupProduct by ID")
     fun getById(
         @Parameter(
             description = "ID of GroupProduct."
         )
         @PathVariable n: Long
-    ): GroupProductDTO {
+    ): GroupProductDto {
         if (n < 0) {
             throw Exception(ErrMessages.ID_MUST_POSITIVE)
         }
@@ -86,72 +92,65 @@ class GroupProductCtrl(val groupProductService: GroupProductService, val product
      */
     @GetMapping("/")
     @Cacheable("allGroupProductDTO")
-    @ApiOperation("Get all groups of product")
-    fun all(): List<GroupProductDTO> {
+    @Operation(method = "Get all groups of product")
+    fun all(): List<GroupProductDto> {
         logger.info("GET all GroupProductDTO")
-        val groups: List<GroupProductDTO> = groupProductService.findAllByOrderByNAsc()
+        val groups: List<GroupProductDto> = groupProductService.findAllByOrderByNAsc()
         if (groups.isEmpty()) {
             throw Exception(ErrMessages.NOT_FOUND_ANY_GROUP)
         }
         return groups.map { entity ->
-            GroupProductDTO(entity.n, entity.name, entity.parentN, entity.haveChilds)
+            GroupProductDto(entity.n, entity.name, entity.parentN, entity.haveChilds)
         }
-//        Error: .toList() лишний. Уже в list после map. Похоже особенности kotlin.
-//        Нужно groups заколлектить в List и уже после как обычно маппить
-//        взято отсюда https://www.baeldung.com/java-stream-immutable-collection.
-//        Хрень в ".collect(toList())" он же вроде и так List
-//        return groups.stream()
-//            .map { entity ->
-//                GroupProductDTO(entity.n, entity.name, entity.parentN, entity.haveChilds)
-//            }.toList()
+
+//      https://www.baeldung.com/java-stream-immutable-collection.
+
     }
 
     @GetMapping("/clear_cache")
     @CacheEvict(value = ["group_products", "allGroupProductDTO"], allEntries = true)
-    @ApiOperation("Clear cache application")
+    @Operation(method = "Clear cache application")
     fun clearCache(): String {
         return "cleared"
     }
 
     @GetMapping("/find")
-    @ApiOperation("Find groups by name")
+    @Operation(method = "Find groups by name")
     fun findByName(
         @Parameter(
             description = "Name of GroupProduct."
         )
         @Valid name: String
-    ): List<GroupProductDTO> {
-//        toList() (как в java)  в Kotlin не нужен.
-//        val groups = service.findByNameContaining(name).toList()
+    ): List<GroupProductDto> {
         val groups = groupProductService.findByNameContaining(name)
         if (groups.isEmpty()) {
             throw Exception(format(ErrMessages.NOT_FOUND_GROUP_BY_NAME, name))
         }
         return groups.map { entity ->
-            GroupProductDTO(entity.n, entity.name, entity.parentN, entity.haveChilds)
+            GroupProductDto(entity.n, entity.name, entity.parentN, entity.haveChilds)
         }
     }
 
     @GetMapping("/{n}/subgroups")
-    @ApiOperation("Get subgroups")
+    @Operation(method = "Get subgroups")
     @Cacheable("allGroupProductDTO")
     fun getSubGroups(
         @Parameter(
             description = "ID of GroupProduct."
         )
         @PathVariable n: Long
-    ): List<GroupProductDTO> {
+    ): List<GroupProductDto> {
         if (!groupProductService.existsByN(n)) {
             throw Exception("Group product not found with id: $n")
         }
         val subGroups = groupProductService.getSubGroups(n)
         return subGroups.map { entity ->
-            GroupProductDTO(entity.n, entity.name, entity.parentN, entity.haveChilds)
+            GroupProductDto(entity.n, entity.name, entity.parentN, entity.haveChilds)
         }
     }
 
     @DeleteMapping("/{n}")
-    @ApiOperation("Delete GroupProduct by ID")
+    @Operation(method = "Delete GroupProduct by ID")
     @CacheEvict(value = ["group_products", "allGroupProductDTO"], allEntries = true)
     fun deleteByN(
         @Parameter(
@@ -160,13 +159,13 @@ class GroupProductCtrl(val groupProductService: GroupProductService, val product
         @PathVariable n: Long
     ) {
         if (!groupProductService.existsByN(n)) {
-            throw Exception(format(NOT_FOUND_GROUP_BY_ID, n))
+            throw Exception(format(ErrMessages.NOT_FOUND_GROUP_BY_ID, n))
         }
         if (groupProductService.getSubGroups(n).isNotEmpty()) {
-            throw Exception(format(HAVE_SUBGROUPS, n))
+            throw Exception(format(ErrMessages.HAVE_SUBGROUPS, n))
         }
         if (productService.getByGroupProductN(n).isNotEmpty()) {
-            throw Exception(format(HAVE_PRODUCTS, n))
+            throw Exception(format(ErrMessages.HAVE_PRODUCTS, n))
         }
         groupProductService.deleteByN(n)
     }
