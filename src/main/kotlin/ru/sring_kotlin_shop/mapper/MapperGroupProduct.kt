@@ -1,7 +1,7 @@
-package ru.shopkotlin.sring_kotlin.mapper
+package ru.sring_kotlin_shop.mapper
 
-import ru.shopkotlin.sring_kotlin.dto.GroupProductDto
-import ru.shopkotlin.sring_kotlin.entity.GroupProductEntity
+import ru.sring_kotlin_shop.dto.GroupProductDto
+import ru.sring_kotlin_shop.entity.GroupProductEntity
 
 object MapperGroupProduct {
     fun mapFromDtoToEntity(dto: GroupProductDto) = GroupProductEntity(

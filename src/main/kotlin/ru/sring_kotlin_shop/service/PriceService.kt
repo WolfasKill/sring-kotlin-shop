@@ -1,6 +1,6 @@
 package ru.sring_kotlin_shop.service
 
-import ru.shopkotlin.sring_kotlin.dto.PriceDto
+import ru.sring_kotlin_shop.dto.PriceDto
 
 interface PriceService {
 

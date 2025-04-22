@@ -1,6 +1,6 @@
-package ru.shopkotlin.sring_kotlin.service
+package ru.sring_kotlin_shop.service
 
-import ru.shopkotlin.sring_kotlin.dto.ProductDto
+import ru.sring_kotlin_shop.dto.ProductDto
 
 interface ProductService {
     fun getAll(): List<ProductDto>

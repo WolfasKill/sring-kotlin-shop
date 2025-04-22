@@ -1,4 +1,4 @@
-package ru.shopkotlin.sring_kotlin.entity
+package ru.sring_kotlin_shop.entity
 
 import jakarta.persistence.*
 import java.math.BigDecimal
@@ -7,20 +7,20 @@ import java.math.BigDecimal
 
 @Entity
 @Table(name = "TBL_PRICE")
-open class PriceEntity { // open - can be inherited and needed for Hibernate
+class PriceEntity { // open - can be inherited and needed for Hibernate
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "p_id")
-    open var n: Long = -1
+    var n: Long = -1
 
     @Column(name = "id", nullable = false)
-    open var productN: Long = -1
+    var productN: Long = -1
 
     @Column(name = "p_t_id", nullable = false)
-    open var priceTypeN: Long = -1
+    var priceTypeN: Long = -1
 
     @Column(name = "price", nullable = false, precision = 10, scale = 2)
-    open var price: BigDecimal = BigDecimal.ZERO
+    var price: BigDecimal = BigDecimal.ZERO
 
     // Empty constructor needed for Hibernate
     constructor() {

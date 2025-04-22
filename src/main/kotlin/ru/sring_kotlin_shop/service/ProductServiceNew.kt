@@ -1,8 +1,8 @@
 package ru.sring_kotlin_shop.service
 
-import ru.shopkotlin.sring_kotlin.dto.ProductDto
-import ru.shopkotlin.sring_kotlin.dto.ProductDtoNew
-import ru.sring_kotlin_shop.filter.ProductFilter
+//import ru.sring_kotlin_shop.dto.ProductDto
+import ru.sring_kotlin_shop.dto.ProductDtoNew
+//import ru.sring_kotlin_shop.filter.ProductFilter
 
 interface ProductServiceNew {
     @Throws(Exception::class)

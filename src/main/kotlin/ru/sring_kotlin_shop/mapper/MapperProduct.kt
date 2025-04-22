@@ -1,13 +1,11 @@
-package ru.shopkotlin.sring_kotlin.mapper
+package ru.sring_kotlin_shop.mapper
 
-import ru.shopkotlin.sring_kotlin.dto.ProductDto
-import ru.shopkotlin.sring_kotlin.dto.ProductDtoNew
-import ru.shopkotlin.sring_kotlin.entity.ProductEntity
-import ru.shopkotlin.sring_kotlin.entity.ProductEntityNew
+import ru.sring_kotlin_shop.dto.ProductDto
+import ru.sring_kotlin_shop.dto.ProductDtoNew
+import ru.sring_kotlin_shop.entity.ProductEntityNew
 
 object MapperProduct {
-    fun mapFromDtoToEntity(dto: ProductDtoNew) = ProductEntityNew(
-        dto.n,
+    fun mapFromDtoToEntity(dto: ProductDtoNew) = ProductEntityNew(        dto.n,
         dto.name,
         dto.groupDtoN
     )

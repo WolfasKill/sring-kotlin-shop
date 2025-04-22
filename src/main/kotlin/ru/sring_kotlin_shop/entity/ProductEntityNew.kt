@@ -1,4 +1,4 @@
-package ru.shopkotlin.sring_kotlin.entity
+package ru.sring_kotlin_shop.entity
 
 import jakarta.persistence.*
 
@@ -8,7 +8,6 @@ open class ProductEntityNew {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    // column name must is not "id", "id" is key word
     open var n: Long = -1
 
     @Column(name = "name", nullable = false)

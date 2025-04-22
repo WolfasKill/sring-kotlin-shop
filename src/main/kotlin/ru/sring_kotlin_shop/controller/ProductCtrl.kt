@@ -2,13 +2,12 @@ package ru.sring_kotlin_shop.controller
 
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
-import jakarta.validation.ConstraintViolation
 import org.slf4j.LoggerFactory
 import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.validation.Validator
 import org.springframework.web.bind.annotation.*
-import ru.shopkotlin.sring_kotlin.dto.ProductDtoNew
+import ru.sring_kotlin_shop.dto.ProductDtoNew
 import ru.sring_kotlin_shop.service.ProductServiceNew
 import java.lang.String.format
 
@@ -50,7 +49,6 @@ class ProductCtrl(
         )
         @RequestBody productDTO: ProductDtoNew
     ): ProductDtoNew {
-        validate(productDTO)
         return productService.create(productDTO)
     }
 
@@ -75,9 +73,7 @@ class ProductCtrl(
     }
 
     @PostMapping(path = ["/{n}"], consumes = ["application/json"], produces = ["application/json"])
-//    @CacheEvict("products")
     @CacheEvict(value = ["products", "allGroupProductDTO"], allEntries = true)
-//    @CacheEvict(value = ["product"], key = "#product.n")
     @Operation(method="Update Product")
     fun update(
         @PathVariable
@@ -89,9 +85,12 @@ class ProductCtrl(
         product: ProductDtoNew
     ): ProductDtoNew {
         logger.info("UPDATE:$product")
-        validate(product)
         return productService.update(product)
     }
+
+
+
+
 
     @DeleteMapping("/{n}")
     @CacheEvict(value = ["products"], key = "#n")
@@ -105,23 +104,7 @@ class ProductCtrl(
         productService.delete(n)
     }
 
-    fun validate(productDTO: ProductDtoNew) {
-        val violations: MutableSet<ConstraintViolation<ProductDtoNew>> =
-            validator.validate(productDTO)
 
-        if (violations.isNotEmpty()) {
-            var messageError = ""
-// OLD STYLE
-//            for(violation in violations) {
-//                messageError = messageError.plus(violation.message + "\n")
-//            }
 
-// USED STREAM
-            violations.forEach { violation ->
-                messageError = messageError.plus(violation.message + "\n")
-            }
-            throw Exception("$productDTO has errors: $messageError")
-        }
-    }
 
 }

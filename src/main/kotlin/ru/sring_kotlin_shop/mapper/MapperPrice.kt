@@ -1,7 +1,7 @@
-package ru.shopkotlin.sring_kotlin.mapper
+package ru.sring_kotlin_shop.mapper
 
-import ru.shopkotlin.sring_kotlin.dto.PriceDto
-import ru.shopkotlin.sring_kotlin.entity.PriceEntity
+import ru.sring_kotlin_shop.dto.PriceDto
+import ru.sring_kotlin_shop.entity.PriceEntity
 
 object MapperPrice {
     val mapperPriceType = MapperPriceType

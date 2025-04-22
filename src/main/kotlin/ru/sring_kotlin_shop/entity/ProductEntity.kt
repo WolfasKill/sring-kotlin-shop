@@ -1,4 +1,4 @@
-package ru.shopkotlin.sring_kotlin.entity
+package ru.sring_kotlin_shop.entity
 
 import jakarta.persistence.*
 

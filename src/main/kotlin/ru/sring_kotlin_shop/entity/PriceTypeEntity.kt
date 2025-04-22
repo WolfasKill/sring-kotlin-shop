@@ -1,4 +1,4 @@
-package ru.shopkotlin.sring_kotlin.entity
+package ru.sring_kotlin_shop.entity
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
@@ -10,12 +10,12 @@ import jakarta.persistence.Table
 
 @Entity
 @Table(name = "TBL_PRICE_TYPE")
-open class PriceTypeEntity { // open - can be inherited and needed for Hibernate
+class PriceTypeEntity { // open - can be inherited and needed for Hibernate
     @Id
     @Column(name = "p_t_id", nullable = false)
-    open var n: Long = -1
+    var n: Long = -1
     @Column(name = "name", nullable = false)
-    open var name: String = ""
+    var name: String = ""
 
     // Empty constructor needed for Hibernate
     constructor()

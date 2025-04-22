@@ -1,4 +1,4 @@
-package ru.shopkotlin.sring_kotlin.dto
+package ru.sring_kotlin_shop.dto
 
 data class GroupProductDto(
     var n: Long = -1,

@@ -1,6 +1,5 @@
-package ru.shopkotlin.sring_kotlin.exception
+package ru.sring_kotlin_shop.exception
 
-import jakarta.persistence.Id
 import org.springframework.http.HttpStatus
 
 class ProductNotFoundException(productId: Int):BaseException(

@@ -1,12 +1,12 @@
-package ru.shopkotlin.sring_kotlin.service.impl
+package ru.sring_kotlin_shop.service.impl
 
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
-import ru.shopkotlin.sring_kotlin.dto.ProductDto
-import ru.shopkotlin.sring_kotlin.entity.ProductEntity
-import ru.shopkotlin.sring_kotlin.exception.ProductNotFoundException
-import ru.shopkotlin.sring_kotlin.repository.ProductRepository
-import ru.shopkotlin.sring_kotlin.service.ProductService
+import ru.sring_kotlin_shop.dto.ProductDto
+import ru.sring_kotlin_shop.entity.ProductEntity
+import ru.sring_kotlin_shop.exception.ProductNotFoundException
+import ru.sring_kotlin_shop.repository.ProductRepository
+import ru.sring_kotlin_shop.service.ProductService
 
 
 @Service

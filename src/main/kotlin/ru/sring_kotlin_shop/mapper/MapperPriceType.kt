@@ -1,14 +1,14 @@
-package ru.shopkotlin.sring_kotlin.mapper
+package ru.sring_kotlin_shop.mapper
 
-import ru.shopkotlin.sring_kotlin.dto.PriceTypeDTO
-import ru.shopkotlin.sring_kotlin.entity.PriceTypeEntity
+import ru.sring_kotlin_shop.dto.PriceTypeDto
+import ru.sring_kotlin_shop.entity.PriceTypeEntity
 
 object MapperPriceType {
-    fun mapFromDtoToEntity(priceTypeDTO: PriceTypeDTO) = PriceTypeEntity(
+    fun mapFromDtoToEntity(priceTypeDTO: PriceTypeDto) = PriceTypeEntity(
         priceTypeDTO.n,
         priceTypeDTO.name
     )
-    fun mapFromEntityToDto(priceTypeEntity: PriceTypeEntity) = PriceTypeDTO(
+    fun mapFromEntityToDto(priceTypeEntity: PriceTypeEntity) = PriceTypeDto(
         priceTypeEntity.n,
         priceTypeEntity.name
     )

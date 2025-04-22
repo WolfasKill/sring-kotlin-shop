@@ -1,7 +1,6 @@
 package ru.sring_kotlin_shop.service
 
-import ru.shopkotlin.sring_kotlin.dto.GroupProductDto
-import ru.sring_kotlin_shop.filter.GroupProductFilter
+import ru.sring_kotlin_shop.dto.GroupProductDto
 
 interface GroupProductService {
     fun create(groupProductDTO: GroupProductDto): GroupProductDto

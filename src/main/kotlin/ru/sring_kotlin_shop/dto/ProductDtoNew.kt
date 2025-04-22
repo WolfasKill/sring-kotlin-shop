@@ -1,4 +1,4 @@
-package ru.shopkotlin.sring_kotlin.dto
+package ru.sring_kotlin_shop.dto
 
 import org.jetbrains.annotations.NotNull
 
@@ -12,17 +12,17 @@ class ProductDtoNew {
     @field:NotNull
     var groupDtoN: Long = -1
 
-    // need for Mockito
+
     constructor()
 
-    // I don't create a constructor from ProductEntity, because I don't want import ProductEntity
+
     constructor(n: Long, name: String, groupDtoN: Long) {
         this.n = n
         this.name = name
         this.groupDtoN = groupDtoN
     }
 
-    // equals and hash as in java
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

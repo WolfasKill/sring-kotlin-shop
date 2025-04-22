@@ -3,7 +3,6 @@ package ru.sring_kotlin_shop.controller
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
-import jakarta.validation.ConstraintViolation
 import jakarta.validation.Valid
 import org.slf4j.LoggerFactory
 import org.springframework.cache.annotation.CacheEvict
@@ -11,8 +10,8 @@ import org.springframework.cache.annotation.Cacheable
 import org.springframework.validation.Validator
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
-import ru.shopkotlin.sring_kotlin.dto.GroupProductDto
-import ru.shopkotlin.sring_kotlin.exception.ErrMessages
+import ru.sring_kotlin_shop.dto.GroupProductDto
+import ru.sring_kotlin_shop.exception.ErrMessages
 import ru.sring_kotlin_shop.service.GroupProductService
 import ru.sring_kotlin_shop.service.ProductServiceNew
 import java.lang.String.format
@@ -21,10 +20,7 @@ import java.lang.String.format
 @RequestMapping("/group_product")
 @Tag(name = "group-product-rest")
 @Validated
-/**
- * Определяет ТОЛЬКО интерфейсы доступа к сервису. Маппинг в DTO делается в сервисе
- * (уход от lazy проблем, независимость от способа получения самих DTO и т.п.).
- */
+
 
 class GroupProductCtrl(
     val groupProductService: GroupProductService,
@@ -55,18 +51,12 @@ class GroupProductCtrl(
         )
         @RequestBody groupProductDTO: GroupProductDto
     ): GroupProductDto {
-        val violations: MutableSet<ConstraintViolation<GroupProductDto>> =
-            validator.validate(groupProductDTO)
-
-        if (violations.size > 0) {
-            var messageError = ""
-            violations.forEach { violation ->
-                messageError = messageError.plus(violation.message + "\n")
-            }
-            throw Exception("$groupProductDTO has errors: $messageError")
-        }
         return groupProductService.create(groupProductDTO)
     }
+
+
+
+
 
     @GetMapping("/{n}")
     @Cacheable("group_products")
@@ -103,7 +93,6 @@ class GroupProductCtrl(
             GroupProductDto(entity.n, entity.name, entity.parentN, entity.haveChilds)
         }
 
-//      https://www.baeldung.com/java-stream-immutable-collection.
 
     }
 

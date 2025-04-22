@@ -1,4 +1,4 @@
-package ru.shopkotlin.sring_kotlin.controller
+package ru.sring_kotlin_shop.controller
 
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.servlet.view.InternalResourceViewResolver
-import ru.shopkotlin.sring_kotlin.dto.ProductDto
-import ru.shopkotlin.sring_kotlin.service.ProductService
+import ru.sring_kotlin_shop.dto.ProductDto
+import ru.sring_kotlin_shop.service.ProductService
 
 
 @RestController

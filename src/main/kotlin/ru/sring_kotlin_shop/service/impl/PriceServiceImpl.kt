@@ -1,8 +1,8 @@
 package ru.sring_kotlin_shop.service.impl
 
 import org.springframework.stereotype.Service
-import ru.shopkotlin.sring_kotlin.dto.PriceDto
-import ru.shopkotlin.sring_kotlin.mapper.MapperPrice
+import ru.sring_kotlin_shop.dto.PriceDto
+import ru.sring_kotlin_shop.mapper.MapperPrice
 import ru.sring_kotlin_shop.repository.PriceRepository
 
 @Service

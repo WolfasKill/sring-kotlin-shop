@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query
 import org.springframework.data.querydsl.QuerydslPredicateExecutor
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
-import ru.shopkotlin.sring_kotlin.entity.GroupProductEntity
+import ru.sring_kotlin_shop.entity.GroupProductEntity
 
 @Repository
 @Transactional

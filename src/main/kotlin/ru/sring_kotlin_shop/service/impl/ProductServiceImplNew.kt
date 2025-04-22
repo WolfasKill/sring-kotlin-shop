@@ -2,9 +2,9 @@ package ru.sring_kotlin_shop.service.impl
 
 
 import org.springframework.stereotype.Service
-import ru.shopkotlin.sring_kotlin.dto.ProductDtoNew
-import ru.shopkotlin.sring_kotlin.entity.ProductEntityNew
-import ru.shopkotlin.sring_kotlin.exception.ErrMessages
+import ru.sring_kotlin_shop.dto.ProductDtoNew
+import ru.sring_kotlin_shop.entity.ProductEntityNew
+import ru.sring_kotlin_shop.exception.ErrMessages
 import ru.sring_kotlin_shop.repository.ProductRepositoryNew
 import ru.sring_kotlin_shop.service.GroupProductService
 import ru.sring_kotlin_shop.service.ProductServiceNew
@@ -47,21 +47,6 @@ class ProductServiceImplNew(
     }
 
 
-//    override fun getByFilter(filter: ProductFilter): List<ProductDtoNew> {
-//        var booleanBuilder = BooleanBuilder()
-//
-//        if (!filter.listN.isEmpty()) {
-//            booleanBuilder = booleanBuilder.and(QProductEntity.productEntity.n.`in`(filter.listN))
-//        }
-//        if (!filter.name.isEmpty()) {
-//            booleanBuilder = booleanBuilder.and(QProductEntity.productEntity.name.like("%" + filter.name + "%"))
-//        }
-//
-//        val entities = productRepository.findAll(booleanBuilder, QSort.by(filter.listSortBy.joinToString(",")))
-//
-//        val dtos = entities.map { ProductDtoNew(it.n, it.name, it.groupProductN) }
-//        return dtos
-//    }
 
 
     override fun getByName(name: String): List<ProductDtoNew> {

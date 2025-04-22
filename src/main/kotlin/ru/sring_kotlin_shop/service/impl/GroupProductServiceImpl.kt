@@ -3,9 +3,9 @@ package ru.sring_kotlin_shop.service.impl
 import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Lazy
 import org.springframework.stereotype.Service
-import ru.shopkotlin.sring_kotlin.dto.GroupProductDto
-import ru.shopkotlin.sring_kotlin.entity.GroupProductEntity
-import ru.shopkotlin.sring_kotlin.exception.ErrMessages
+import ru.sring_kotlin_shop.dto.GroupProductDto
+import ru.sring_kotlin_shop.entity.GroupProductEntity
+import ru.sring_kotlin_shop.exception.ErrMessages
 import ru.sring_kotlin_shop.repository.GroupProductRepository
 import ru.sring_kotlin_shop.service.GroupProductService
 import ru.sring_kotlin_shop.service.ProductServiceNew

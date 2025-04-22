@@ -1,4 +1,4 @@
-package ru.shopkotlin.sring_kotlin.exception
+package ru.sring_kotlin_shop.exception
 
 class ErrMessages {
     companion object {
